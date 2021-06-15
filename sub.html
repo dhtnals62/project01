@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>큐레이터N</title>
+    <link href="CSS/style.css" rel="stylesheet" type="text/css">
+    
+    <script src="js/jquery-v1.10.2.min.js" type="text/javascript"></script>
+    <script src="js/jquery-finger-v0.1.0.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function() {
+            mobile_menu();
+        });
+
+        function mobile_menu() {
+            /* 변수 선언 */
+            var $menu = null;
+            var $left_gnb = null; // 영역 전체
+            var $depth1_wrap = null;
+            var $depth1 = null;
+            var $depth1_btn = null;
+
+            /* 시작 함수 */
+            function start() {
+                init();
+                init_event();
+            }
+            /* 변수 초기화 함수 */
+            function init() {
+                $menu = $('.m_menu');
+                $left_gnb = $('.left_gnbWrap'); // 영역 전체
+                $depth1_wrap = $('.left_gnb>li');
+                $depth1 = $depth1_wrap.children('ul');
+                $depth1_btn = $depth1_wrap.children('a');
+            }
+            /* 이벤트 함수 */
+            function init_event() {
+
+                /* 모바일 메뉴 버튼 클릭했을때 모바일 메뉴영역 나오게 하기 */
+                $menu.click(function(event) {
+                    event.preventDefault();
+                    $left_gnb.addClass('on');
+                });
+
+                /* x버튼 눌렀을때 모바일 메뉴 닫기 */
+                $('.close').click(function(event) {
+                    event.preventDefault();
+
+                    $left_gnb.removeClass('on');
+
+                    // x버튼 누르면 시간차 약간두고 소메뉴 닫히게 하기
+                    setTimeout(function() {
+                        $depth1_btn.removeClass('on');
+                        $depth1.slideUp();
+                    }, 300)
+                });
+
+                /* depth1의 각메뉴 클릭시 depth2 나오게 하기 */
+                $depth1_btn.click(function(event) {
+                    event.preventDefault();
+                    var $this = $(this);
+                    var $this_ul = $this.siblings('ul');
+
+                    var check = $this.hasClass('on');
+                    if (check) {
+                        $this.removeClass('on');
+                        $this_ul.stop(true, true).slideUp();
+                    } else {
+                        $depth1_btn.removeClass('on');
+                        $depth1.stop().slideUp();
+                        $this.addClass('on');
+                        $this_ul.stop(true, true).slideDown();
+                    }
+                });
+
+                /* 디바이스 크기 변경시 모바일 메뉴영역 숨기기 */
+                $(window).resize(function() {
+                    $left_gnb.removeClass('on');
+                });
+            }
+
+            start(); // 시작 호출
+        }
+
+    </script>
+</head>
+
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div class="top_h">
+                <div class="inner">
+                    <ul class="site">
+                        <li>검색</li>
+                        <li>상세검색</li>
+                        <li>
+                            이미지검색
+                        </li>
+                        <!--초기화-->
+                    </ul>
+                    <ul class="util">
+                        <li>로그인</li>
+                        <li>마이페이지</li>
+                        <li>나도큐레이터</li>
+                        <li>e뮤지엄 소식</li>
+                        <li>고객센터</li>
+                        <!--초기화-->
+                    </ul>
+                    <!--초기화-->
+                </div>
+            </div>
+            <div class="bottom_h">
+                <div class="inner">
+                    <ul class="menu">
+                        <li><a href="sub.html">소장기관</a>
+                        <ul>
+                            <li><a href="sub.html">소장지역</a></li>
+                            <li><a href="sub.html">소장구분</a></li>
+                            <li><a href="sub.html">소장기관</a></li>
+                            <li><a href="sub.html">소장번호</a></li>
+                            <!--초기화-->
+                        </ul>
+                        </li>
+                        <li><a href="sub.html">지정문화재</a>
+                        <ul>
+                            <li><a href="sub.html">지정문화재</a></li>
+                            <li><a href="sub.html">지정번호</a></li>
+                            <!--초기화-->
+                        </ul>
+                        </li>
+                        <li><a href="sub.html">국적/시대</a>
+                        <ul>
+                            <li><a href="sub.html">국적</a></li>
+                            <li><a href="sub.html">시대</a></li>
+                            <!--초기화-->
+                        </ul>
+                        </li>
+                        <li><a href="sub.html">재질</a>
+                        <ul>
+                            <li><a href="sub.html">재질</a></li>
+                            <li><a href="sub.html">상세재질</a></li>
+                            <!--초기화-->
+                        </ul>
+                        </li>
+                        <li><a href="sub.html">분류</a>
+                        <ul>
+                            <li><a href="sub.html">대분류</a></li>
+                            <li><a href="sub.html">중분류</a></li>
+                            <li><a href="sub.html">소분류</a></li>
+                            <li><a href="sub.html">상세분류</a></li>
+                            <!--초기화-->
+                        </ul>
+                        </li>
+                        <!--초기화-->
+                    </ul>
+                    <div class="logo"><a href="index.html"><img src="images/logo_png.png"></a></div>
+                    <div class="logo_m"><select>
+                            <option>&nbsp;&nbsp;검색</option>
+                            <option>&nbsp;&nbsp;이미지검색</option>
+                            <option>&nbsp;&nbsp;상세검색</option>
+                        </select></div>
+                    <div class="sub_m">
+                        <ul class="side">
+                            <li><i><img src="images/icon_01.png.png"></i>e뮤지엄 소개</li>
+                            <li><i><img src="images/icon_02.png.png"></i>이용안내</li>
+                            <!--초기화-->
+                        </ul>
+                        <div class="search"><img src="images/icon_search.png.png">
+                            <p>이미지검색</p>
+                        </div>
+                        <div class="m_menu"><img src="images/icon_menu.png.png"></div>
+                        <nav class="left_gnbWrap">
+                            <a href="#" class="close"><img src="images/btn_fixClose.png"></a>
+                            <ul class="left_gnb">
+                                <li>
+                                    <a href="sub.html">소장기관</a>
+                                    <ul>
+                                        <li><a href="sub.html">소장지역</a></li>
+                                        <li><a href="sub.html">소장구분</a></li>
+                                        <li><a href="sub.html">소장기관</a></li>
+                                        <li><a href="sub.html">소장번호</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="sub.html">지정문화재</a>
+                                    <ul>
+                                        <li><a href="sub.html">지정문화재</a></li>
+                                        <li><a href="sub.html">지정번호</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="sub.html">국적/시대</a>
+                                    <ul>
+                                        <li><a href="sub.html">국적</a></li>
+                                        <li><a href="sub.html">시대</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="sub.html">재질</a>
+                                    <ul>
+                                        <li><a href="sub.html">재질</a></li>
+                                        <li><a href="sub.html">상세재질</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="sub.html">분류</a>
+                                    <ul>
+                                        <li><a href="sub.html">대분류</a></li>
+                                        <li><a href="sub.html">중분류</a></li>
+                                        <li><a href="sub.html">소분류</a></li>
+                                        <li><a href="sub.html">상세분류</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                        <!--초기화-->
+                    </div>
+                    <!--초기화-->
+                </div>
+            </div>
+        </header>
+        <!--서브1콘텐츠-->
+        <main id="sub_contents">
+            <section class="menu_b">
+                <div class="inner">
+                    <ul>
+                        <li><img src="images/e%EB%AE%A4%EC%A7%80%EC%97%84_s-logo.png.png"></li>
+                        <li><select>
+                                <option>&nbsp;&nbsp;전시기획형</option>
+                                <option>&nbsp;&nbsp;문화예술</option>
+                                <option>&nbsp;&nbsp;의식주</option>
+                                <option>&nbsp;&nbsp;근현대/사회</option>
+                                <option>&nbsp;&nbsp;종교신앙</option>
+                                <option>&nbsp;&nbsp;보건의료</option>
+                                <option>&nbsp;&nbsp;유리건판/사진</option>
+                            </select></li>
+                        <li><select>
+                                <option>&nbsp;&nbsp;일반형</option>
+                                <option>&nbsp;&nbsp;문화예술</option>
+                                <option>&nbsp;&nbsp;의식주</option>
+                                <option>&nbsp;&nbsp;근현대/사회</option>
+                                <option>&nbsp;&nbsp;종교신앙</option>
+                                <option>&nbsp;&nbsp;보건의료</option>
+                                <option>&nbsp;&nbsp;유리건판/사진</option>
+                                <option>&nbsp;&nbsp;산업/교통/통신</option>
+                                <option>&nbsp;&nbsp;과학기술/군사</option>
+                                <option>&nbsp;&nbsp;놀이/여가</option>
+                                <option>&nbsp;&nbsp;자연사</option>
+                            </select></li>
+                        <!--초기화-->
+                    </ul>
+                </div>
+            </section>
+            <section id="sub_img">
+                <h1 class="hidden">서브이미지</h1>
+            </section>
+            <section class="sub_con1">
+                <div class="sb1_title">
+                    <h2>전체(777)</h2>
+                    <p>카테고리 분류</p>
+                </div>
+                <div class="sb1_con">
+                    <dl>
+                        <dt>
+                            <i><img src="images/%EB%AC%B8%ED%99%94%EC%98%88%EC%88%A0_icon.png.png"></i>
+                            문화예술
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li>조선후기,소박한 일상을 살았</li>
+                                <li>우리 도자기에는 상상의 동물</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <i><img src="images/%EC%9D%98%EC%8B%9D%EC%A3%BC_icon.png.png"></i>
+                            의식주
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li>아름다운 우리옷, 한복</li>
+                                <li>빗살무늬토기는 왜 뾰족할까?</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <i><img src="images/%EA%B7%BC%ED%98%84%EB%8C%80%EC%82%AC%ED%9A%8C_icon.png.png"></i>
+                            근현대/사회
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li>젊은 꼰대들의 추억팔이</li>
+                                <li>진짜 '나'의 모습</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <i><img src="images/%EC%A2%85%EA%B5%90.png.png"></i>
+                            종교신앙
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li>연가칠년명 금동불입상의 진</li>
+                                <li>역사 속의 한류</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <i><img src="images/%EB%B3%B4%EA%B1%B4.png.png"></i>
+                            보건의료
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li>의학과 함꼐 건강하고 튼튼하</li>
+                                <li>지금 이순간 역사가 되길</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <dl>
+                        <dt>
+                            <i><img src="images/%EA%B1%B4%ED%8C%90_white.png"></i>
+                            유리건판/사진
+                        </dt>
+                        <dd>
+                            <ul>
+                                <li>수원, 화성을 걷다.</li>
+                                <li>우리는 어떻게 키워졌나?</li>
+                            </ul>
+                        </dd>
+                    </dl>
+                    <!--초기화-->
+                </div>
+            </section>
+            <section class="sub_con2">
+                <ul class="sb2_cm">
+                    <li>추천순</li>
+                    <li>게시일순</li>
+                    <li>작성일순</li>
+                    <li>가나다순</li>
+                    <!--초기화-->
+                </ul>
+                <div class="sb2_con">
+                    <div class="sb2_left">
+                        <i class="i_sb2"><img src="images/%EA%B5%AD%EB%B3%B4.png.png"></i>
+                        <p class="txt1">한국의 국보</p>
+                        <p class="btn_1">문화예술</p>
+                        <p class="txt2">큐레이터 : <span>비공개</span></p>
+                        <p class="btn_2">바로가기</p>
+                    </div>
+                    <div class="sb2_right">
+                        <i class="i_sb2"><img src="images/%EC%86%8C.png.png"></i>
+                        <p class="txt1">2021,소의 해를 맞이하여</p>
+                        <p class="btn_1">의식주</p>
+                        <p class="txt2">큐레이터 : <span>비공개</span></p>
+                        <p class="btn_2">바로가기</p>
+                    </div>
+                    <!--초기화-->
+                </div>
+                <p>※ 이뮤지엄의 소장품정보를 ★관심소장품으로 지정한 후<br>
+                    마이페이지>나의소장품>관심소장품>나도큐레이터 등록 메뉴를 이용해 나만의 스토리로 만들어 보세요</p>
+            </section>
+            <section class="bt_m">
+                <div class="inner">
+                    <p>FAMILY SITE<img src="images/up_ft.png.png"></p>
+                </div>
+            </section>
+        </main>
+        <footer id="footer">
+            <div class="top_footer">
+                <div class="inner">
+                    <p>저작권 정책</p>
+                </div>
+            </div>
+            <div class="bottom_footer">
+                <div class="inner">
+                    <div class="f_logo">
+                        <a href="index.html"><img src="images/f_logo.png.png" alt="푸터로고"></a>
+                    </div>
+                    <div class="copyright">
+                        <ul>
+                            <li><span>주소</span>서울시 용산구 서빙고로 137</li>
+                            <li><span>대표자</span>김성일</li>
+                            <li><span>사업자등록번호</span>112-81-31178</li>
+                            <li><span>개인정보보호책임자</span>전승목</li>
+                        </ul>
+                        <p>COPYRIGHT(c)National Museum of Korea.All rights reserved.</p>
+                    </div>
+                    <div class="info">
+                        <ul>
+                            <li>국립중앙박물관 고객지원센터</li>
+                            <li>02-2077-9407~8</li>
+                            <!--초기화-->
+                        </ul>
+                    </div>
+                    <div class="bt_logo">
+                        <a href="https://www.museum.go.kr/site/main/home"><img src="images/%EA%B5%AD%EB%A6%BD%EC%A4%91%EC%95%99%EB%B0%95%EB%AC%BC%EA%B4%80.png.png"></a>
+                    </div>
+                    <!--초기화-->
+                </div>
+            </div>
+        </footer>
+    </div>
+</body></html>
