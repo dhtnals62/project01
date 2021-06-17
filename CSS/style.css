@@ -411,6 +411,7 @@ a.close{
 
  .slick-slide {
             margin: 0px 30px;
+     
         }
 
         .slick-slide img {
@@ -424,7 +425,7 @@ a.close{
 
 
 .slide {
-    width: 30%;
+    width: 33.33%;
     float: left;
     margin: 0 15px
 }
@@ -1658,6 +1659,8 @@ top: 25%
 
 @media (max-width:520px)
 {
+     .con_set{padding-top: calc(400/520*10%)}
+    
     .rank_list>ul>li:first-child{left: -40%}
     .rank_list>ul>li:nth-child(3){left: 0}
     .rank_list>ul>li:last-child{left: 60%}
