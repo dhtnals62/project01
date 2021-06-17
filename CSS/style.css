@@ -1656,6 +1656,14 @@ top: 25%
     .sub_con2>p{font-size: 11px}
 }
 
+@media (max-width:520px)
+{
+    .rank_list>ul>li:first-child{left: -40%}
+    .rank_list>ul>li:nth-child(3){left: 0}
+    .rank_list>ul>li:last-child{left: 60%}
+    
+}
+
 
 /* 추가되는 부분 */
 .flickerplate ul.flicks > li:nth-child(1){background-image: url(../images/images/main_img.jpg); background-size: cover}
